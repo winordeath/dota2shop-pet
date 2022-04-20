@@ -1,0 +1,220 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300&display=swap');
+
+body {
+    height: 100%;
+    background-image: url(img/bg-img.jpg);
+    background-size: cover;
+    font-family: 'Noto Sans', sans-serif;
+    font-weight: 800;
+}
+
+.wrapper {
+    min-height: 100%;
+    max-width: 1080px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    background-color: antiquewhite;
+    opacity: 80%;
+}
+
+#main-section {
+    flex: 1 1 auto;
+    align-items: center;
+    text-align: center;
+}
+
+.logo {
+    max-width: 300px;
+    max-height: 80px;
+}
+
+.logo img {
+    width: 100%;
+    height: auto;
+}
+
+.container {
+    display: flex;
+    max-width: 95%;
+    padding: 5px 0px;
+    margin: 0 auto;
+    justify-content: space-between;
+}
+
+#cart__logo {
+    max-width: 70px;
+    max-height: 100%;
+    margin: 0 auto;
+}
+
+#cart__logo img {
+    width: 100%;
+    height: 100%;
+}
+
+#cart {
+    align-items: center;
+    text-align: center;
+    max-width: 100px;
+}
+
+
+.header {
+    border-bottom: 5px;
+    border-color: black;
+    border-style: groove;
+    background-color: greenyellow;
+    text-align: center;
+}
+
+.Arcana {
+    color: #ade55c;
+    font-weight: bold;
+}
+
+.Mythical {
+    color: #8843ff;
+    font-weight: bold;
+}
+
+.Rare {
+    color: blue;
+    font-weight: bold;
+}
+
+.Immortal {
+    color: gold;
+    font-weight: bold;
+}
+
+.footer {
+    align-items: center;
+    text-align: center;
+    background-color: black;
+    color: azure;
+    font-size: 20px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    padding: 10px;
+}
+
+#container-main {
+    margin: 0 auto;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.card {
+    background-color: red;
+    width: 200px;
+    max-height: 350px;
+    overflow: hidden;
+    margin: 0 5px 5px 5px;
+    text-overflow: ellipsis;
+    height: 320px;
+}
+
+.card__wrapper {
+    display: flex;
+    flex-direction: column;
+    max-height: 99%;
+    min-height: 99%;
+}
+
+.card__name {
+    padding: 3px 0;
+    font-size: 14px;
+    color: white;
+    overflow: hidden;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.text {
+    margin: 2px auto;
+}
+
+.card__text {
+    text-align: left;
+}
+
+.card__content {
+    padding: 0 10px;
+    text-align: center;
+    flex: 1 1 auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 16px;
+}
+
+.card__img {
+    max-width: 180px;
+    max-height: 120px;
+}
+
+.card__img img {
+    max-width: 100%;
+    height: 100%;
+    
+}
+
+.card__description {
+    max-height: auto;
+    text-align: center;
+    font-style: oblique;
+    text-overflow: ellipsis;
+    word-wrap: normal;
+}
+
+.main-section__title {
+    padding: 5px 0 0 0;
+    font-size: 22px;
+    font-weight: 800;
+    color: purple;
+}
+
+.button-input__wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.card__input {
+    width: 30px;
+    border-radius: 3px;
+    text-align: center;
+    align-items: center;
+    background-color: pink;
+    color: black;
+    font-weight: bold;
+    height: 20px;
+}
+
+.card__button {
+    margin-right: 5px;
+    padding: 2px 0 4px 0;
+    width: 90px;
+    height: 25px;
+    border-radius: 5px;
+    font-weight: bold;
+    background-color: black;
+    color: greenyellow;
+    align-items: center;
+    text-align: center;
+}
+
+.card__button[disabled] {
+    cursor: no-drop;
+    color: red;
+}
+
+.card:hover {
+    background-color: rgb(43, 49, 43);
+    color: white;
+}
+
+.orange {
+    color: orange;
+}
