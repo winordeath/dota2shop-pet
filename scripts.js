@@ -23,7 +23,11 @@ mainSection.addEventListener(`input`, (e) => {
     const elementId = card.getAttribute("id");
     const button = card.querySelector(".card__button");
     const currentElementData = dataArr.find((item) => item.id === elementId);
-    updateButtonStatus(targetElementInput,button)
+    if ((currentElementData.amount < targetElementInput.value) || (targetElementInput.value < 0) || (currentElementData.amount === 0)) {
+        button.setAttribute("disabled", "disabled");
+    } else {
+        button.removeAttribute("disabled");
+    };
 });
 
 mainSection.addEventListener(`click`, (e) => {
@@ -108,7 +112,7 @@ function sentToCart(el) {
 
             currentElementData.amount -= inputValue;
             amount.innerHTML = `Amount: ${currentElementData.amount}`;
-        };updateButtonStatus(targetElementInput,button)
+        };
         
     };
     
@@ -135,9 +139,5 @@ function updateCartData(items, price) {
 };
 
 function updateButtonStatus(targetElementInput,button) {
-    if ((dataArr.amount < targetElementInput.value) || (targetElementInput.value < 0) || (dataArr.amount === 0)) {
-        button.setAttribute("disabled", "disabled");
-    } else {
-        button.removeAttribute("disabled");
-    };
+   
 }
