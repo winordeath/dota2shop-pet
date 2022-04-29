@@ -142,7 +142,38 @@ function updateCartData(items, price) {
 };
 
 function gamble() {
-    let generatedNum = +((Math.random() * 100) + 1).toFixed(2)
+    let generatedNum = +((Math.random() * 100) + 1).toFixed(2);
+    console.log(generatedNum)
+    const immortal = dataGambleArr.find((item) => item.rarity === "imm");
+    const arcana = dataGambleArr.find((item) => item.rarity === "arc")
+    const mythical = dataGambleArr.find((item) => item.rarity === "myt")
+    const rare = dataGambleArr.find((item) => item.rarity === "rar");
+    const uncommon = dataGambleArr.find((item) => item.rarity === "unc");
+    const common = dataGambleArr.find((item) => item.rarity === "com");
+    sumAll = (immortal.rate + arcana.rate + mythical.rate + rare.rate + uncommon.rate + common.rate)
+    let loseChance = 100 - sumAll;
+    let commonChance = loseChance + common.rate;
+    let uncommonChance = commonChance + uncommon.rate;
+    let rareChance = uncommonChance + rare.rate;
+    let mythicalChance = rareChance + mythical.rate;
+    let arcanaChance = mythicalChance + arcana.rate;
+    let immortalChance = arcanaChance + immortal.rate;
+
+    if (generatedNum < loseChance) {
+        console.log("Better luck next time")
+    } else if (generatedNum < commonChance) {
+        console.log("You won common item")
+    } else if (generatedNum < uncommonChance) {
+        console.log("you won uncommon item")
+    } else if (generatedNum < rareChance) {
+        console.log("you won rare item")
+    } else if (generatedNum < mythicalChance) {
+        console.log("you won mythical item")
+    } else if (generatedNum < arcanaChance) {
+        console.log("you wont arcana item")
+    } else if (generatedNum < immortalChance) {
+        console.log("you won immortal item")
+    }
 
 }
 
@@ -152,7 +183,7 @@ function formateGambleValues() {
     for (let i = 0; i < dataGambleArr.length; i++) {
         for (key in dataGambleArr[i]) {
             if (key === "rate")
-            dataGambleArr[i][key] = +dataGambleArr[i][key].split(",").join(".");
+                dataGambleArr[i][key] = +dataGambleArr[i][key].split(",").join(".");
         };
     };
 };
