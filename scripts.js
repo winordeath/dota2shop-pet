@@ -1,6 +1,9 @@
 const divData = document.getElementById("data");
 const dataItemsJson = divData.dataset.items;
 const dataArr = JSON.parse(dataItemsJson);
+const divDataGamble = document.getElementById("data-gamble");
+const divDataGambleJson = divDataGamble.dataset.items;
+const dataGambleArr = JSON.parse(divDataGambleJson);
 const cardList = document.getElementsByClassName("card");
 const nameList = document.getElementsByClassName("card__name");
 const imgList = document.getElementsByClassName("card__img");
@@ -14,8 +17,9 @@ const cartItems = [];
 const totalItemsElement = document.getElementById("total-items");
 const totalPriceElement = document.getElementById("total-price");
 const containerMain = document.getElementById("container-main");
-
+console.log(dataGambleArr)
 renderCards();
+formateGambleValues();
 
 mainSection.addEventListener(`input`, (e) => {
     const targetElementInput = e.target;
@@ -91,7 +95,6 @@ function sentToCart(el) {
     const inputValue = +card.querySelector(".card__input").value;
     const amount = card.querySelector(".card__amount");
     const elementId = card.getAttribute("id");
-    const button = card.querySelector(".card__button");
     const currentElementData = dataArr.find((item) => item.id === elementId);
 
     if (currentElementData.amount >= inputValue) {
@@ -105,7 +108,7 @@ function sentToCart(el) {
 
             if (includes) {
                 includes.amount += inputValue;
-                
+
             } else {
                 cartItems.push(addToCart);
             };
@@ -113,9 +116,9 @@ function sentToCart(el) {
             currentElementData.amount -= inputValue;
             amount.innerHTML = `Amount: ${currentElementData.amount}`;
         };
-        
+
     };
-    
+
 };
 
 function sumAllCartItems() {
@@ -138,6 +141,20 @@ function updateCartData(items, price) {
     totalPriceElement.innerHTML = `${price}$`;
 };
 
-function updateButtonStatus(targetElementInput,button) {
-   
+function gamble() {
+    let generatedNum = +((Math.random() * 100) + 1).toFixed(2)
+
 }
+
+gamble();
+
+function formateGambleValues() {
+    for (let i = 0; i < dataGambleArr.length; i++) {
+        for (key in dataGambleArr[i]) {
+            if (key === "rate")
+            dataGambleArr[i][key] = +dataGambleArr[i][key].split(",").join(".");
+        };
+    };
+};
+
+
