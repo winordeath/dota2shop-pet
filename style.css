@@ -68,22 +68,22 @@ body {
     text-align: center;
 }
 
-.Arcana {
+.card_arcana {
     color: #ade55c;
     font-weight: bold;
 }
 
-.Mythical {
+.card_mythical {
     color: #8843ff;
     font-weight: bold;
 }
 
-.Rare {
+.card_rare {
     color: blue;
     font-weight: bold;
 }
 
-.Immortal {
+.card_immortal {
     color: gold;
     font-weight: bold;
 }

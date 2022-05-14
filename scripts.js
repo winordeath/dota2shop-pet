@@ -8,7 +8,7 @@ const cardList = document.getElementsByClassName("card");
 const nameList = document.getElementsByClassName("card__name");
 const imgList = document.getElementsByClassName("card__img");
 const descriptionList = document.getElementsByClassName("card__description")
-const rarityList = document.getElementsByClassName("rarity");
+const rarityList = document.getElementsByClassName("card__rarity");
 const amountList = document.getElementsByClassName("card__amount");
 const priceList = document.getElementsByClassName("card__price");
 const mainSection = document.getElementById("main-section");
@@ -17,7 +17,7 @@ const cartItems = [];
 const totalItemsElement = document.getElementById("total-items");
 const totalPriceElement = document.getElementById("total-price");
 const containerMain = document.getElementById("container-main");
-console.log(dataGambleArr)
+
 renderCards();
 formateGambleValues();
 
@@ -59,7 +59,7 @@ function renderCards() {
                         <p class="card__description text"></p>
                     </div>
                     <div class="card__footer">
-                        <p class="card__rarity text">Rarity: <span class="rarity"></span></p>
+                        <p class="card__rarity text"></p>
                         <p class="card__amount text"></p>
                         <p class="card__price"></p>
                         <div class="button-input__wrapper">
@@ -72,20 +72,20 @@ function renderCards() {
         };
 
         function addCardData() {
-            const map = {
-                "Arcana": "Arcana",
-                "Immortal": "Immortal",
-                "Rare": "Rare",
-                "Mythical": "Mythical"
-            }[dataArr[i].rarity];
             cardList[i].setAttribute("id", dataArr[i].id);
             nameList[i].innerHTML = dataArr[i].name;
             imgList[i].firstElementChild.setAttribute("src", dataArr[i].img);
-            rarityList[i].innerHTML = map;
-            rarityList[i].classList.add(map);
             descriptionList[i].innerHTML = `${dataArr[i].description}`;
             amountList[i].innerHTML = `Amount: ${dataArr[i].amount}`;
             priceList[i].innerHTML = `Price: ${dataArr[i].price}`;
+            const classNameByRarity = {
+                "Arcana": "card_arcana",
+                "Immortal": "card_immortal",
+                "Rare": "card_rare",
+                "Mythical": "card_mythical"
+            }
+            const cardRarity = dataArr[i].rarity;
+            rarityList[i].innerHTML = `Rarity: <span class=${classNameByRarity[cardRarity]}>${cardRarity}</span>`
         };
     };
 };
@@ -152,67 +152,64 @@ function formateGambleValues() {
 
 const data = [
     {
-      rarity: 'imm',
-      rate: '0',
+        rarity: 'imm',
+        rate: '0',
     },
     {
-      rarity: 'arc',
-      rate: '0,5',
+        rarity: 'arc',
+        rate: '0,5',
     },
     {
-      rarity: 'myt',
-      rate: '1,12',
+        rarity: 'myt',
+        rate: '1,12',
     },
     {
-      rarity: 'rar',
-      rate: '11,01',
+        rarity: 'rar',
+        rate: '11,01',
     },
     {
-      rarity: 'unc',
-      rate: '18',
+        rarity: 'unc',
+        rate: '18',
     },
     {
-      rarity: 'com',
-      rate: '29,2',
+        rarity: 'com',
+        rate: '29,2',
     },
-  ];
-  
-  const validateData = (data) =>
-    data.map((item) => ({...item, rate: parseFloat(item.rate.replace(',', '.')),
-      }))
-      .sort((a, b) => b.rate - a.rate);
-  
-  const generateRandomInteger = (min, max) => (min + Math.random() * (max + 1 - min));
-  
-  const play = (data) => {
+];
+
+const validateData = (data) =>
+    data.map((item) => ({
+        ...item, rate: parseFloat(item.rate.replace(',', '.')),
+    }))
+        .sort((a, b) => b.rate - a.rate);
+
+const generateRandomInteger = (min, max) => (min + Math.random() * (max + 1 - min));
+
+const play = (data) => {
     const validData = validateData(data);
     const winNum = generateRandomInteger(0, 99).toFixed(2);
-    console.log(winNum)
     let prevScore = 0;
-  
+
     for (let index = 0; index < validData.length; index++) {
-      const item = validData[index];
-      const currentScore = item.rate + prevScore;
-      const isWinner = winNum <= currentScore;
-      const correctRarity = {
-          "com" : "Common",
-          "unc" : "Uncommon",
-          "rar" : "Rare",
-          "arc" : "Arcana",
-          "myt" : "Mythical",
-          "imm" : "Immortal"
-      }
-      const rarity = item.rarity;
-      if (isWinner) {
-       
-        return `Congratulations! You win ${correctRarity[rarity]} item!`;
-      } else {
-        prevScore += item.rate;
-      }
+        const item = validData[index];
+        const currentScore = item.rate + prevScore;
+        const isWinner = winNum <= currentScore;
+        const rarity = item.rarity;
+        const correctRarity = {
+            "com": "Common",
+            "unc": "Uncommon",
+            "rar": "Rare",
+            "arc": "Arcana",
+            "myt": "Mythical",
+            "imm": "Immortal"
+        }
+
+        if (isWinner) {
+            return `Congratulations! You win ${correctRarity[rarity]} item!`;
+        } else {
+            prevScore += item.rate;
+        }
     }
-  
+
     return 'Better luck next time!';
-  };
-  
-  
-  console.log(play(data));
+};
