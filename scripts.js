@@ -141,44 +141,6 @@ function updateCartData(items, price) {
     totalPriceElement.innerHTML = `${price}$`;
 };
 
-function gamble() {
-    let generatedNum = +((Math.random() * 100) + 1).toFixed(2);
-    console.log(generatedNum)
-    const immortal = dataGambleArr.find((item) => item.rarity === "imm");
-    const arcana = dataGambleArr.find((item) => item.rarity === "arc")
-    const mythical = dataGambleArr.find((item) => item.rarity === "myt")
-    const rare = dataGambleArr.find((item) => item.rarity === "rar");
-    const uncommon = dataGambleArr.find((item) => item.rarity === "unc");
-    const common = dataGambleArr.find((item) => item.rarity === "com");
-    sumAll = (immortal.rate + arcana.rate + mythical.rate + rare.rate + uncommon.rate + common.rate)
-    let loseChance = 100 - sumAll;
-    let commonChance = loseChance + common.rate;
-    let uncommonChance = commonChance + uncommon.rate;
-    let rareChance = uncommonChance + rare.rate;
-    let mythicalChance = rareChance + mythical.rate;
-    let arcanaChance = mythicalChance + arcana.rate;
-    let immortalChance = arcanaChance + immortal.rate;
-
-    if (generatedNum < loseChance) {
-        console.log("Better luck next time")
-    } else if (generatedNum < commonChance) {
-        console.log("You won common item")
-    } else if (generatedNum < uncommonChance) {
-        console.log("you won uncommon item")
-    } else if (generatedNum < rareChance) {
-        console.log("you won rare item")
-    } else if (generatedNum < mythicalChance) {
-        console.log("you won mythical item")
-    } else if (generatedNum < arcanaChance) {
-        console.log("you wont arcana item")
-    } else if (generatedNum < immortalChance) {
-        console.log("you won immortal item")
-    }
-
-}
-
-gamble();
-
 function formateGambleValues() {
     for (let i = 0; i < dataGambleArr.length; i++) {
         for (key in dataGambleArr[i]) {
@@ -188,4 +150,69 @@ function formateGambleValues() {
     };
 };
 
-
+const data = [
+    {
+      rarity: 'imm',
+      rate: '0',
+    },
+    {
+      rarity: 'arc',
+      rate: '0,5',
+    },
+    {
+      rarity: 'myt',
+      rate: '1,12',
+    },
+    {
+      rarity: 'rar',
+      rate: '11,01',
+    },
+    {
+      rarity: 'unc',
+      rate: '18',
+    },
+    {
+      rarity: 'com',
+      rate: '29,2',
+    },
+  ];
+  
+  const validateData = (data) =>
+    data.map((item) => ({...item, rate: parseFloat(item.rate.replace(',', '.')),
+      }))
+      .sort((a, b) => b.rate - a.rate);
+  
+  const generateRandomInteger = (min, max) => (min + Math.random() * (max + 1 - min));
+  
+  const play = (data) => {
+    const validData = validateData(data);
+    const winNum = generateRandomInteger(0, 99).toFixed(2);
+    console.log(winNum)
+    let prevScore = 0;
+  
+    for (let index = 0; index < validData.length; index++) {
+      const item = validData[index];
+      const currentScore = item.rate + prevScore;
+      const isWinner = winNum <= currentScore;
+      const correctRarity = {
+          "com" : "Common",
+          "unc" : "Uncommon",
+          "rar" : "Rare",
+          "arc" : "Arcana",
+          "myt" : "Mythical",
+          "imm" : "Immortal"
+      }
+      const rarity = item.rarity;
+      if (isWinner) {
+       
+        return `Congratulations! You win ${correctRarity[rarity]} item!`;
+      } else {
+        prevScore += item.rate;
+      }
+    }
+  
+    return 'Better luck next time!';
+  };
+  
+  
+  console.log(play(data));
