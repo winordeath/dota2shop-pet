@@ -14,8 +14,7 @@ body {
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    background-color: antiquewhite;
-    opacity: 80%;
+    background: rgba(0, 255, 191, 0.2);
 }
 
 #main-section {
@@ -156,7 +155,7 @@ body {
 .card__img img {
     width: 100%;
     height: 100%;
-    
+
 }
 
 .card__description {
@@ -217,4 +216,38 @@ body {
 
 .orange {
     color: orange;
+}
+
+#modal-wrapper {
+    position: fixed;
+    background-color: black;
+    background: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+.modal-block {
+    background-color: yellow;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 500px;
+    height: 500px;
+    margin: 200px auto;
+    opacity: 1;
+}
+
+.modal-header {
+    padding: 10px;
+    display:flex;
+    flex-direction: row-reverse;
+}
+
+.modal-header p {
+    cursor: pointer;
 }

@@ -17,6 +17,8 @@ const cartItems = [];
 const totalItemsElement = document.getElementById("total-items");
 const totalPriceElement = document.getElementById("total-price");
 const containerMain = document.getElementById("container-main");
+const modalElement = document.getElementById("modal");
+const gambleElement = document.getElementById("gamble")
 
 renderCards();
 formateGambleValues();
@@ -213,3 +215,23 @@ const play = (data) => {
 
     return 'Better luck next time!';
 };
+
+function createModal() {
+    modalElement.insertAdjacentHTML(`afterbegin`,
+    `<div id="modal-wrapper">
+        <div class="modal-block">
+            <div class="modal-header">
+                <p id="modal__close-button">&#10006
+                </p>
+            </div>
+        </div>
+    </div>`)
+    const wrapper = document.getElementById("modal-wrapper");
+    const closeButton = document.getElementById("modal__button-close");
+    closeButton.onclick = () => {
+        wrapper.remove()
+    }
+}
+
+gambleElement.onclick = createModal;
+
