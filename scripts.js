@@ -220,17 +220,20 @@ function createModal() {
     modalElement.insertAdjacentHTML(`afterbegin`,
     `<div id="modal-wrapper">
         <div class="modal-block">
-            <div class="modal-header">
+            <div class="modal-header" title="Exit">
                 <p id="modal__close-button">&#10006
                 </p>
             </div>
         </div>
     </div>`)
-    const wrapper = document.getElementById("modal-wrapper");
-    const closeButton = document.getElementById("modal__button-close");
+
+    const closeButton = document.getElementById("modal__close-button")
+
     closeButton.onclick = () => {
-        wrapper.remove()
+        const modalWrapper = document.getElementById("modal-wrapper")
+        modalWrapper.remove();
     }
+    
 }
 
 gambleElement.onclick = createModal;
