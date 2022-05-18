@@ -246,8 +246,37 @@ body {
     padding: 10px;
     display:flex;
     flex-direction: row-reverse;
+    height: 10%;
 }
 
 .modal-header p {
     cursor: pointer;
+}
+
+#modal-content {
+    align-items: center;
+}
+
+#modal-body {
+    text-align: center;
+    font-size: 20px;
+    height: 90%;
+}
+
+#gamble-result {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100%;
+    text-align: center;
+    align-items: center;
+}
+
+#play-again-btn {
+    width: 100px;
+    padding: 10px;
+    font-weight: bold;
+    background-color: #8843ff;
+    color: white;
+    border: medium solid black;
 }

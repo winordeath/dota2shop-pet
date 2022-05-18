@@ -187,7 +187,7 @@ const validateData = (data) =>
 
 const generateRandomInteger = (min, max) => (min + Math.random() * (max + 1 - min));
 
-const play = (data) => {
+function play(data) {
     const validData = validateData(data);
     const winNum = generateRandomInteger(0, 99).toFixed(2);
     let prevScore = 0;
@@ -218,23 +218,60 @@ const play = (data) => {
 
 function createModal() {
     modalElement.insertAdjacentHTML(`afterbegin`,
-    `<div id="modal-wrapper">
+        `<div id="modal-wrapper">
         <div class="modal-block">
             <div class="modal-header" title="Exit">
                 <p id="modal__close-button">&#10006
                 </p>
             </div>
+            <div id="modal-body">
+            </div>
         </div>
     </div>`)
-
-    const closeButton = document.getElementById("modal__close-button")
-
-    closeButton.onclick = () => {
-        const modalWrapper = document.getElementById("modal-wrapper")
-        modalWrapper.remove();
-    }
-    
+    gamble();
 }
 
-gambleElement.onclick = createModal;
+function gamble() {
+    loadGamble();
+    setTimeout(showGambleInfo, 5000);
+}
+
+function loadGamble() {
+    const modalBody = document.getElementById("modal-body");
+    modalBody.innerHTML = `
+    <div id="gamble-gif">
+        <img src="https://i.gifer.com/8iwS.gif"></img>
+        </div><br>
+        <p id="gamble-text">Please wait , Gaben is twisting the roulette
+    </p>`;
+};
+
+function showGambleInfo() {
+    const modalBody = document.getElementById("modal-body");
+    modalBody.innerHTML = `
+    <div id="gamble-result">
+        <p>${play(data)}</p>
+        <button id="play-again-btn">PLAY AGAIN
+        </button>
+    </div>`
+};
+
+modalElement.addEventListener(`click`, function (e) {
+    const playAgainButton = e.target;
+
+    if (playAgainButton.closest("#play-again-btn")) {
+        gamble();
+    }
+})
+
+modalElement.addEventListener(`click`, function (e) {
+    const closeButton = e.target;
+
+    if (closeButton.closest("#modal__close-button")) {
+        const modalWrapper = document.getElementById("modal-wrapper");
+        modalWrapper.remove();
+    }
+})
+
+gambleElement.onclick = createModal, showGambleInfo;
 
