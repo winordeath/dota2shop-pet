@@ -244,7 +244,7 @@ body {
 
 .modal-header {
     padding: 10px;
-    display:flex;
+    display: flex;
     flex-direction: row-reverse;
     height: 10%;
 }
@@ -284,6 +284,6 @@ body {
 #gamble {
     padding: 5px;
     font-weight: bold;
-    color:red;
+    color: red;
     border: 2px solid black
 }

@@ -85,7 +85,7 @@ function renderCards() {
                 "Immortal": "card_immortal",
                 "Rare": "card_rare",
                 "Mythical": "card_mythical"
-            }
+            };
             const cardRarity = dataArr[i].rarity;
             rarityList[i].innerHTML = `Rarity: <span class=${classNameByRarity[cardRarity]}>${cardRarity}</span>`
         };
@@ -109,7 +109,7 @@ function sentToCart(el) {
         if (currentElementData.amount > 0) {
 
             if (includes) {
-                includes.amount += inputValue;
+                includes.amount += +inputValue;
 
             } else {
                 cartItems.push(addToCart);
@@ -118,9 +118,7 @@ function sentToCart(el) {
             currentElementData.amount -= inputValue;
             amount.innerHTML = `Amount: ${currentElementData.amount}`;
         };
-
     };
-
 };
 
 function sumAllCartItems() {
@@ -140,7 +138,7 @@ function sumAllCartItems() {
 
 function updateCartData(items, price) {
     totalItemsElement.innerHTML = `${items}`;
-    totalPriceElement.innerHTML = `${price}$`;
+    totalPriceElement.innerHTML = `${price.toFixed(2)}$`;
 };
 
 function formateGambleValues() {
@@ -238,6 +236,7 @@ function gamble() {
 
 function loadGamble() {
     const modalBody = document.getElementById("modal-body");
+
     modalBody.innerHTML = `
     <div id="gamble-gif">
         <img src="https://i.gifer.com/8iwS.gif"></img>
@@ -248,6 +247,7 @@ function loadGamble() {
 
 function showGambleInfo() {
     const modalBody = document.getElementById("modal-body");
+
     modalBody.innerHTML = `
     <div id="gamble-result">
         <p>${play(data)}</p>
@@ -273,5 +273,5 @@ modalElement.addEventListener(`click`, function (e) {
     }
 })
 
-gambleElement.onclick = createModal, showGambleInfo;
+gambleElement.onclick = createModal;
 
