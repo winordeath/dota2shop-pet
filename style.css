@@ -280,3 +280,10 @@ body {
     color: white;
     border: medium solid black;
 }
+
+#gamble {
+    padding: 5px;
+    font-weight: bold;
+    color:red;
+    border: 2px solid black
+}
