@@ -274,4 +274,3 @@ modalElement.addEventListener(`click`, function (e) {
 })
 
 gambleElement.onclick = createModal;
-

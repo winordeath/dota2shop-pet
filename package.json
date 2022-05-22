@@ -1,21 +1,15 @@
 {
   "name": "dota2shop-pet",
   "version": "1.0.0",
-  "description": "My first JS project",
+  "description": "��#\u0000 \u0000d\u0000o\u0000t\u0000a\u00002\u0000s\u0000h\u0000o\u0000p\u0000-\u0000p\u0000e\u0000t\u0000\r\u0000 \u0000",
   "main": "scripts.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack"
-    
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/winordeath/dota2shop-pet.git"
   },
-  "keywords": [
-    "dota2shop",
-    "JS"
-  ],
   "author": "Yevhenii Halkin <jekagalkin@gmail.com>",
   "license": "ISC",
   "bugs": {
@@ -23,6 +17,8 @@
   },
   "homepage": "https://github.com/winordeath/dota2shop-pet#readme",
   "devDependencies": {
+    "clean-webpack-plugin": "^4.0.0",
+    "html-webpack-plugin": "^5.5.0",
     "webpack": "^5.72.1",
     "webpack-cli": "^4.9.2"
   }
