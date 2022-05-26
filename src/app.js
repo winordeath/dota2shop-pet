@@ -19,6 +19,8 @@ const totalPriceElement = document.getElementById("total-price");
 const containerMain = document.getElementById("container-main");
 const modalElement = document.getElementById("modal");
 const gambleElement = document.getElementById("gamble");
+let targetElementInput;
+let gambleTimeout;
 
 renderCards();
 formateGambleValues();
@@ -278,7 +280,7 @@ modalElement.addEventListener(`click`, function (e) {
     if (closeButton.closest("#modal__close-button")) {
         const modalWrapper = document.getElementById("modal-wrapper");
         modalWrapper.remove();
-        clearTimeout(timeout);
+        clearTimeout(gambleTimeout);
     }
 })
 
