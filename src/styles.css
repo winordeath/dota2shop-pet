@@ -1,13 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300&display=swap');
 
-body {
-    height: 100%;
-    background-image: url(img/bg-img.jpg);
-    background-size: cover;
-    font-family: 'Noto Sans', sans-serif;
-    font-weight: 800;
-}
-
 .wrapper {
     min-height: 100%;
     max-width: 1080px;
