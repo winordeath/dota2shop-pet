@@ -14,6 +14,7 @@ const rarityList = document.getElementsByClassName("card__rarity");
 const amountList = document.getElementsByClassName("card__amount");
 const priceList = document.getElementsByClassName("card__price");
 const mainSection = document.getElementById("main-section");
+const cartImg = document.getElementById("cart__logo");
 const cartItems = [];
 const totalItemsElement = document.getElementById("total-items");
 const totalPriceElement = document.getElementById("total-price");
@@ -77,6 +78,23 @@ function sentToCart(el) {
     };
 };
 
+mainSection.addEventListener(`input`, (e) => {
+    const targetElementInput = e.target;
+    buttonDisable(targetElementInput, targetElementInput.previousElementSibling, targetElementInput)
+});
+
+mainSection.addEventListener(`click`, (e) => {
+    const targetElementButton = e.target;
+
+    if (targetElementButton.closest(`.card__button`)) {
+        sentToCart(targetElementButton);
+        const totalCartData = sumAllCartItems();
+        updateCartData(totalCartData.items, totalCartData.price);
+        buttonDisable(targetElementButton, targetElementButton, targetElementButton.nextElementSibling)
+    };
+});
+
+
 function buttonDisable(currentEl, button, input) {
     const card = currentEl.closest("[id]");
     const elementId = card.getAttribute("id");
@@ -88,6 +106,7 @@ function buttonDisable(currentEl, button, input) {
         button.removeAttribute("disabled");
     };
 }
+
 
 function sumAllCartItems() {
     let total = {
@@ -107,25 +126,46 @@ function sumAllCartItems() {
 function updateCartData(items, price) {
     totalItemsElement.innerHTML = `${items}`;
     totalPriceElement.innerHTML = `${price}$`;
-}
+};
 
-mainSection.addEventListener(`input`, (e) => {
-    const targetElementInput = e.target;
-    buttonDisable(targetElementInput, targetElementInput.previousElementSibling, targetElementInput)
-});
+const validateData = (data) =>
+  data
+    .map((item) => ({
+      ...item,
+      rate: parseFloat(item.rate.replace(',', '.')),
+    }))
+    .sort((a, b) => b.rate - a.rate);
 
-mainSection.addEventListener(`click`, (e) => {
-    const targetElementButton = e.target;
+const generateRandomInteger = (min, max) => Math.floor(min + Math.random() * (max + 1 - min));
 
-    if (targetElementButton.closest(`.card__button`)) {
-        sentToCart(targetElementButton);
-        const totalCartData = sumAllCartItems();
-        updateCartData(totalCartData.items, totalCartData.price);
-        buttonDisable(targetElementButton, targetElementButton, targetElementButton.nextElementSibling)
-    };
-});
+function twistRoulette(data) {
+    const validData = validateData(data);
+    const winNum = generateRandomInteger(0, 99).toFixed(2);
+    let prevScore = 0;
 
-gambleElement.onclick = createModal;
+    for (let index = 0; index < validData.length; index++) {
+        const item = validData[index];
+        const currentScore = item.rate + prevScore;
+        const isWinner = winNum <= currentScore;
+        const rarity = item.rarity;
+        const fullItemNames = {
+            "com": "Common",
+            "unc": "Uncommon",
+            "rar": "Rare",
+            "arc": "Arcana",
+            "myt": "Mythical",
+            "imm": "Immortal"
+        }
+
+        if (isWinner) {
+            return `Congratulations! You win ${fullItemNames[rarity]} item!`;
+        } else {
+            prevScore += item.rate;
+        }
+    }
+
+    return 'Better luck next time!';
+};
 
 function createModal() {
     modalElement.insertAdjacentHTML(`afterbegin`,
@@ -156,47 +196,7 @@ function loadGamble() {
         </div><br>
         <p id="gamble-text">Please wait , Gaben is twisting the roulette
     </p>`;
-}
-
-function twistRoulette(dataGambleArr) {
-    const validData = validateData(dataGambleArr);
-    const winNum = generateRandomInteger(0, 99).toFixed(2);
-    let prevScore = 0;
-
-    for (let index = 0; index < validData.length; index++) {
-        const item = validData[index];
-        const currentScore = item.rate + prevScore;
-        const isWinner = winNum <= currentScore;
-        const rarity = item.rarity;
-        const fullItemNames = {
-            "com": "Common",
-            "unc": "Uncommon",
-            "rar": "Rare",
-            "arc": "Arcana",
-            "myt": "Mythical",
-            "imm": "Immortal"
-        }
-
-        if (isWinner) {
-            return `Congratulations! You win ${fullItemNames[rarity]} item!`;
-        } else {
-            prevScore += item.rate;
-        }
-    }
-
-    return 'Better luck next time!';
-}
-
-function validateData(data) {
-    data.map((item) => ({
-        ...item, rate: parseFloat(item.rate.replace(',', '.')),
-    }))
-        .sort((a, b) => b.rate - a.rate);
-}
-
-function generateRandomInteger(min, max) {
-    (min + Math.random() * (max + 1 - min));
-}
+};
 
 function showGambleInfo() {
     const modalBody = document.getElementById("modal-body");
@@ -207,7 +207,7 @@ function showGambleInfo() {
         <button id="play-again-btn">PLAY AGAIN
         </button>
     </div>`
-}
+};
 
 modalElement.addEventListener(`click`, function (e) {
     const playAgainButton = e.target;
@@ -227,3 +227,5 @@ modalElement.addEventListener(`click`, function (e) {
         clearTimeout(gambleTimeout);
     }
 })
+
+gambleElement.onclick = createModal;
