@@ -1,3 +1,5 @@
+import createCard from "./create-card";
+
 const divData = document.getElementById("data");
 const dataItemsJson = divData.dataset.items;
 const dataArr = JSON.parse(dataItemsJson);
@@ -16,18 +18,16 @@ const cartImg = document.getElementById("cart__logo");
 const cartItems = [];
 const totalItemsElement = document.getElementById("total-items");
 const totalPriceElement = document.getElementById("total-price");
-const containerMain = document.getElementById("container-main");
 const modalElement = document.getElementById("modal");
 const gambleElement = document.getElementById("gamble");
 let targetElementInput;
 let gambleTimeout;
 
 renderCards();
-formateGambleValues();
 
 mainSection.addEventListener(`input`, (e) => {
-    targetElementInput = e.target;
-    buttonDisable(targetElementInput,targetElementInput.previousElementSibling)
+    let targetElementInput = e.target;
+    buttonDisable(targetElementInput, targetElementInput.previousElementSibling, targetElementInput)
 });
 
 mainSection.addEventListener(`click`, (e) => {
@@ -37,17 +37,17 @@ mainSection.addEventListener(`click`, (e) => {
         sentToCart(targetElementButton);
         const totalCartData = sumAllCartItems();
         updateCartData(totalCartData.items, totalCartData.price);
-        buttonDisable(targetElementButton,targetElementButton)
+        buttonDisable(targetElementButton, targetElementButton, targetElementButton.nextElementSibling)
     };
 });
 
 
-function buttonDisable(currentEl,button) {
+function buttonDisable(currentEl, button, input) {
     const card = currentEl.closest("[id]");
     const elementId = card.getAttribute("id");
     const currentElementData = dataArr.find((item) => item.id === elementId);
 
-    if ((currentElementData.amount < targetElementInput.value) || (targetElementInput.value < 0) || (currentElementData.amount === 0) || (targetElementInput.value > currentElementData.amount)) {
+    if ((currentElementData.amount < input.value) || (input.value < 0) || (currentElementData.amount === 0) || (input.value > currentElementData.amount)) {
         button.setAttribute("disabled", "disabled");
     } else {
         button.removeAttribute("disabled");
@@ -59,28 +59,6 @@ function renderCards() {
     for (let i = 0; i < dataArr.length; i++) {
         createCard();
         addCardData();
-
-        function createCard() {
-            containerMain.insertAdjacentHTML(`beforeend`,
-                `<div class="card">
-                <div class="card__wrapper">
-                    <div class="card__content">
-                        <h1 class="card__name"></h1>
-                        <div class="card__img"><img width="120" heigth="120" src="" alt=""></div>
-                        <p class="card__description text"></p>
-                    </div>
-                    <div class="card__footer">
-                        <p class="card__rarity text"></p>
-                        <p class="card__amount text"></p>
-                        <p class="card__price"></p>
-                        <div class="button-input__wrapper">
-                            <button class="card__button">Add to cart</button>
-                            <input class="card__input" type="number" min="0" value="0">
-                        </div>
-                    </div>
-                </div>
-        </div>`);
-        };
 
         function addCardData() {
             cardList[i].setAttribute("id", dataArr[i].id);
@@ -150,42 +128,6 @@ function updateCartData(items, price) {
     totalPriceElement.innerHTML = `${price.toFixed(2)}$`;
 };
 
-function formateGambleValues() {
-    for (let i = 0; i < dataGambleArr.length; i++) {
-        for (key in dataGambleArr[i]) {
-            if (key === "rate")
-                dataGambleArr[i][key] = +dataGambleArr[i][key].split(",").join(".");
-        };
-    };
-};
-
-const data = [
-    {
-        rarity: 'imm',
-        rate: '0',
-    },
-    {
-        rarity: 'arc',
-        rate: '0,5',
-    },
-    {
-        rarity: 'myt',
-        rate: '1,12',
-    },
-    {
-        rarity: 'rar',
-        rate: '11,01',
-    },
-    {
-        rarity: 'unc',
-        rate: '18',
-    },
-    {
-        rarity: 'com',
-        rate: '29,2',
-    },
-];
-
 const validateData = (data) =>
     data.map((item) => ({
         ...item, rate: parseFloat(item.rate.replace(',', '.')),
@@ -194,8 +136,8 @@ const validateData = (data) =>
 
 const generateRandomInteger = (min, max) => (min + Math.random() * (max + 1 - min));
 
-function play(data) {
-    const validData = validateData(data);
+function play(dataGambleArr) {
+    const validData = validateData(dataGambleArr);
     const winNum = generateRandomInteger(0, 99).toFixed(2);
     let prevScore = 0;
 
@@ -240,7 +182,7 @@ function createModal() {
 
 function gamble() {
     loadGamble();
-    timeout = setTimeout(showGambleInfo, 5000);
+    gambleTimeout = setTimeout(showGambleInfo, 5000);
 }
 
 function loadGamble() {
@@ -259,7 +201,7 @@ function showGambleInfo() {
 
     modalBody.innerHTML = `
     <div id="gamble-result">
-        <p>${play(data)}</p>
+        <p>${play(dataGambleArr)}</p>
         <button id="play-again-btn">PLAY AGAIN
         </button>
     </div>`
@@ -269,8 +211,8 @@ modalElement.addEventListener(`click`, function (e) {
     const playAgainButton = e.target;
 
     if (playAgainButton.closest("#play-again-btn")) {
+        clearTimeout(gambleTimeout)
         gamble();
-        clearTimeout(timeout)
     }
 })
 
