@@ -1,5 +1,6 @@
 function createCard() {
     const containerMain = document.getElementById("container-main");
+    
     containerMain.insertAdjacentHTML(`beforeend`,
         `<div class="card">
         <div class="card__wrapper">
