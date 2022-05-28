@@ -1,5 +1,6 @@
+import containerMain from "./app";
+
 function createCard() {
-    const containerMain = document.getElementById("container-main");
     
     containerMain.insertAdjacentHTML(`beforeend`,
         `<div class="card">
@@ -22,4 +23,4 @@ function createCard() {
 </div>`);
 };
 
-export default createCard;
+export default createCard

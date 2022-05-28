@@ -1,8 +1,8 @@
 import createCard from "./create-card";
 
-const divData = document.getElementById("data");
-const dataItemsJson = divData.dataset.items;
-const dataArr = JSON.parse(dataItemsJson);
+// const divData = document.getElementById("data");
+// const dataItemsJson = divData.dataset.items;
+// const dataArr = JSON.parse(dataItemsJson);
 const divDataGamble = document.getElementById("data-gamble");
 const divDataGambleJson = divDataGamble.dataset.items;
 const dataGambleArr = JSON.parse(divDataGambleJson);
@@ -14,23 +14,40 @@ const rarityList = document.getElementsByClassName("card__rarity");
 const amountList = document.getElementsByClassName("card__amount");
 const priceList = document.getElementsByClassName("card__price");
 const mainSection = document.getElementById("main-section");
-const cartImg = document.getElementById("cart__logo");
+const containerMain = document.getElementById("container-main");
 const cartItems = [];
 const totalItemsElement = document.getElementById("total-items");
 const totalPriceElement = document.getElementById("total-price");
 const modalElement = document.getElementById("modal");
 const gambleElement = document.getElementById("gamble");
 let gambleTimeout;
+const requestURL = "https://6291e2709d159855f081b5ea.mockapi.io/dota2"
+let dataArr;
 
-renderCards();
+function sendRequest(method, url, body = null) {
+    return fetch(url).then(response => {
+        return response.json()
+    })
+}
 
-function renderCards() {
+sendRequest('GET', requestURL)
+    .then(items => {
+        renderCards(items)
+        return items
+    })
+    .catch(() => containerMain.innerHTML = `Гейб еще не завёз шмотки`)
+    .then(items => {
+        dataArr = items;
+    })
+
+
+function renderCards(dataArr) {
 
     for (let i = 0; i < dataArr.length; i++) {
         createCard();
-        addCardData();
+        addCardData(dataArr);
 
-        function addCardData() {
+        function addCardData(dataArr) {
             cardList[i].setAttribute("id", dataArr[i].id);
             nameList[i].innerHTML = dataArr[i].name;
             imgList[i].firstElementChild.setAttribute("src", dataArr[i].img);
@@ -89,7 +106,7 @@ mainSection.addEventListener(`click`, (e) => {
     if (targetElementButton.closest(`.card__button`)) {
         sentToCart(targetElementButton);
         const totalCartData = sumAllCartItems();
-        updateCartData(totalCartData.items, totalCartData.price);
+        updateCartData(totalCartData.items, toFixedPrice(totalCartData.price));
         buttonDisable(targetElementButton, targetElementButton, targetElementButton.nextElementSibling)
     };
 });
@@ -128,13 +145,21 @@ function updateCartData(items, price) {
     totalPriceElement.innerHTML = `${price}$`;
 };
 
+function toFixedPrice(element) {
+    if (element % 1 == 0) {
+        return element
+    } else {
+        return +element.toFixed(2)
+    }
+}
+
 const validateData = (data) =>
-  data
-    .map((item) => ({
-      ...item,
-      rate: parseFloat(item.rate.replace(',', '.')),
-    }))
-    .sort((a, b) => b.rate - a.rate);
+    data
+        .map((item) => ({
+            ...item,
+            rate: parseFloat(item.rate.replace(',', '.')),
+        }))
+        .sort((a, b) => b.rate - a.rate);
 
 const generateRandomInteger = (min, max) => Math.floor(min + Math.random() * (max + 1 - min));
 
@@ -229,3 +254,5 @@ modalElement.addEventListener(`click`, function (e) {
 })
 
 gambleElement.onclick = createModal;
+
+export default containerMain
