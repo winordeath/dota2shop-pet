@@ -3,10 +3,11 @@ const HTMLWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const { addAbortSignal } = require('stream');
 const { randomFill } = require('crypto');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = {
     context: path.resolve(__dirname, 'src'),
-    entry: './scripts.js',
+    entry: './start.js',
     output: {
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'dist')
@@ -16,7 +17,10 @@ module.exports = {
             template: './index.html',
             favicon: './img/favicon.ico'
         }),
-        new CleanWebpackPlugin()
+        new CleanWebpackPlugin(),
+        new MiniCssExtractPlugin({
+            filename: '[name].css'
+        })
     ],
     devServer: {
         port: 8800
@@ -25,7 +29,11 @@ module.exports = {
         rules: [
             {
                 test: /\.css$/,
-                use: ['style-loader','css-loader']
+                use: [MiniCssExtractPlugin.loader, 'css-loader']
+            },
+            {
+                test: /\.scss$/,
+                use: [MiniCssExtractPlugin.loader, 'css-loader','sass-loader']
             },
             {
                 test: /\.(png|jpg|ttf|ico)$/,
@@ -36,5 +44,5 @@ module.exports = {
             }
         ],
     },
-  
+
 }

@@ -1,4 +1,19 @@
+@import './reset.scss';
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300&display=swap');
+
+$color-darkgreen-opacity: rgba(93, 239, 49, 0.2);
+$color-red: #ff0000;
+$color-gold: #ffd700;
+$color-blue: #0000ff;
+$color-black: #000000;
+$color-purple: #8843ff;
+$color-white: #ffffff;
+$color-lightgreen: #48f10f;
+$color-orange: #ffa500;
+$color-pink: #ffc0cb;
+$color-asphalt: #2b312b;
+$color-black-opacity:rgba(0, 0, 0, 0.5);  
+$color-yellow: yellow;
 
 img {
     max-width: none;
@@ -10,7 +25,7 @@ img {
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    background: rgba(0, 255, 191, 0.2);
+    background: $color-darkgreen-opacity;
 }
 
 #main-section {
@@ -19,14 +34,21 @@ img {
     text-align: center;
 }
 
+#gabe-error {
+    color:$color-red;
+    font-size: 30px;
+}
+
 .logo {
     max-width: 300px;
     max-height: 80px;
 }
 
-.logo img {
-    width: 100%;
-    height: auto;
+.logo {
+    img {
+        width: 100%;
+        height: auto;
+    }
 }
 
 .container {
@@ -43,9 +65,11 @@ img {
     margin: 0 auto;
 }
 
-#cart__logo img {
-    width: 100%;
-    height: 100%;
+#cart__logo {
+    img {
+        width: 100%;
+        height: 100%;
+    }
 }
 
 #cart {
@@ -54,40 +78,39 @@ img {
     max-width: 100px;
 }
 
-
 .header {
     border-bottom: 5px;
-    border-color: black;
+    border-color: $color-black;
     border-style: groove;
-    background-color: greenyellow;
+    background-color: $color-lightgreen;
     text-align: center;
 }
 
 .card_arcana {
-    color: #ade55c;
+    color: $color-gold;
     font-weight: bold;
 }
 
 .card_mythical {
-    color: #8843ff;
+    color: $color-purple;
     font-weight: bold;
 }
 
 .card_rare {
-    color: blue;
+    color: $color-blue;
     font-weight: bold;
 }
 
 .card_immortal {
-    color: gold;
+    color: $color-gold;
     font-weight: bold;
 }
 
 .footer {
     align-items: center;
     text-align: center;
-    background-color: black;
-    color: azure;
+    background-color: $color-black;
+    color: $color-white;
     font-size: 20px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     padding: 10px;
@@ -100,7 +123,7 @@ img {
 }
 
 .card {
-    background-color: red;
+    background-color: $color-red;
     width: 200px;
     max-height: 350px;
     overflow: hidden;
@@ -119,7 +142,7 @@ img {
 .card__name {
     padding: 3px 0;
     font-size: 14px;
-    color: white;
+    color: $color-white;
     overflow: hidden;
     white-space: nowrap;
     overflow: hidden;
@@ -148,10 +171,11 @@ img {
     max-height: 120px;
 }
 
-.card__img img {
-    width: 100%;
-    height: 100%;
-
+.card__img {
+    img {
+        width: 100%;
+        height: 100%;
+    }
 }
 
 .card__description {
@@ -166,7 +190,7 @@ img {
     padding: 5px 0 0 0;
     font-size: 22px;
     font-weight: 800;
-    color: purple;
+    color: $color-purple;
 }
 
 .button-input__wrapper {
@@ -181,8 +205,8 @@ img {
     border-radius: 3px;
     text-align: center;
     align-items: center;
-    background-color: pink;
-    color: black;
+    background-color: $color-pink;
+    color: $color-black;
     font-weight: bold;
     height: 20px;
 }
@@ -194,30 +218,30 @@ img {
     height: 25px;
     border-radius: 5px;
     font-weight: bold;
-    background-color: black;
-    color: greenyellow;
+    background-color: $color-black;
+    color: $color-lightgreen;
     align-items: center;
     text-align: center;
 }
 
 .card__button[disabled] {
     cursor: no-drop;
-    color: red;
+    color: $color-red;
 }
 
 .card:hover {
-    background-color: rgb(43, 49, 43);
-    color: white;
+    background-color: $color-asphalt;
+    color: $color-white;
 }
 
 .orange {
-    color: orange;
+    color: $color-orange;
 }
 
 #modal-wrapper {
     position: fixed;
-    background-color: black;
-    background: rgba(0, 0, 0, 0.5);
+    background-color: $color-black;
+    background: $color-black-opacity;
     width: 100%;
     height: 100%;
     top: 0;
@@ -227,7 +251,7 @@ img {
 }
 
 .modal-block {
-    background-color: yellow;
+    background-color: $color-yellow;
     top: 0;
     left: 0;
     right: 0;
@@ -245,8 +269,10 @@ img {
     height: 10%;
 }
 
-.modal-header p {
-    cursor: pointer;
+.modal-header {
+    p {
+        cursor: pointer;
+    }
 }
 
 #modal-content {
@@ -272,18 +298,17 @@ img {
     width: 100px;
     padding: 10px;
     font-weight: bold;
-    background-color: #8843ff;
-    color: white;
-    border: medium solid black;
+    background-color: $color-purple;
+    color: $color-white;
+    border: medium solid $color-black;
 }
 
 #gamble {
     padding: 5px;
     font-weight: bold;
-    color: red;
-    border: 2px solid black
+    color: $color-red;
+    border: 2px solid $color-black;
 }
-
 
 .loader {
     top: 50%;
@@ -296,7 +321,7 @@ img {
 .bar {
     width: 10px;
     height: 70px;
-    background: #fff;
+    background: $color-white;
     display: inline-block;
     transform-origin: bottom center;
     border-top-right-radius: 20px;

@@ -41,7 +41,7 @@ function createCard() {
 function getCardData() {
     const loader = document.querySelector(".loader");
     loader.style.visibility = "visible"
-    
+
     getData('GET', cardDataURL)
         .then(items => {
             renderCards(items)
@@ -51,7 +51,10 @@ function getCardData() {
         .then(items => {
             dataArr = items;
         })
-        .catch(() => containerMain.innerHTML = `Гейб еще не завёз шмотки`)
+        .catch(function () {
+            containerMain.innerHTML = `<span id="gabe-error">Гейб еще не завёз шмотки</span>`,
+            loader.style.visibility = "hidden"
+        })
 }
 
 getCardData();

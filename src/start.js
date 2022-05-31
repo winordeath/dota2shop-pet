@@ -1,5 +1,4 @@
-import './reset.css'
-import './styles.css'
+import './styles.scss'
 import './img/bg-img.jpg'
 import './img/cart-logo.png'
 import './img/cm_arcana.jpg'
